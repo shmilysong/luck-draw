@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+<style type="text/css">
+body { margin:0px auto; height: 100%;}
+h2{ width:90%; text-align:center;}
+input{ background:#C03; width:100px; height:16px; border:2px solid #FF9; outline:none; }
+.wp {position: relative;width:800px;height:600px; overflow: hidden; margin: 100px auto; background:url(img/bg.jpg) no-repeat; font-size: 22px; font-family:'Microsoft YaHei'; }
+.fu{  position:absolute; z-index:2; width:160px; height:120px; left:70px; top:116px; font-size:36px; color:#FF0; }
+.wp .people{ width:180px; height:40px; position:absolute; right:100px; top:50px; color:#FF3; }
+.wp .people .font{ width:100px; height:10px; position:absolute; top:33px; left:96px;}
+.wp .people .img{ width:195px; height:40px; margin-left:-28px; }
+.wp .td1{ width:240px; height:30px; position:absolute; bottom:10px; left:50px; }
+.wp .td1 b{ color:#FFC; font-size:18px; }
+.wp .td4{ position:absolute; bottom:60px; left:100px; }
+.wp .td5{ position:absolute; bottom:60px; left:350px; }
+.wp .td6{ position:absolute; bottom:60px; left:600px; }
+.wp span{ width:120px; height:40px; background:#FFC; display:block; text-align:center; line-height:40px; border-radius:10px; color:#000; font-size:20px; font-weight:bold; }
+.wp .xname{ color:#ffff66; width:280px; height:80px; margin:120px auto;}
+.wp .foot{ width:360px; height:202px;  position:absolute; bottom:125px; left:200px; overflow:hidden; }
+.wp .foot .result_xx{ width:360px; height:234px; border:2px solod #000; position:absolute; bottom:111px; left:200px; z-index:3; }
+.wp .foot .result_xx dt{ }
+.wp .foot dd{ color:#fff; text-align:center; }
+.wp select{ height:40px; width:100px; font-size:20px; }
+.wp .jxsz{ position:absolute; bottom:130px; left:80px; background:#F90; width:100px; height:32px; border:0;  }
+.wp .jxsz option{ color:#f3dbb9; }
+ 
+ 
+</style>
+<script type="text/javascript" src="jquery-1.7.2.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var auto;
+        var rand;
+        arry = [{ "ID": 101118, "ProID": 242, "Floor": 0, "OpenID": "", "DaShang": 0.00, "DSFlag": 0, "Nick": "杰", "Icon": "", "Msg": "", "Phone": "186****7693", "Date1": "\/Date(1457318935293)\/", "Date11": "", "Flag": -4 }, { "ID": 101119, "ProID": 242, "Floor": 0, "OpenID": "", "DaShang": 0.00, "DSFlag": 0, "Nick": "仰望", "Icon": "", "Msg": "", "Phone": "158****9916", "Date1": "\/Date(1457318969060)\/", "Date11": "", "Flag": -4 },{ "ID": 101120, "ProID": 242, "Floor": 0, "OpenID": "", "DaShang": 0.00, "DSFlag": 0, "Nick": "张三", "Icon": "", "Msg": "", "Phone": "180****7600", "Date1": "\/Date(1457318935293)\/", "Date11": "", "Flag": -4 }];
+        function funa() {
+            rand = Math.floor(Math.random() * arry.length);   //随机取得数组的下标
+            $(".xname").html(arry[rand].Phone + "<br> " + arry[rand].Nick);
+            auto = setTimeout(funa, 10)
+        }
+        $(".beginclick").click(function () {
+            auto = setTimeout(funa, 10)
+            return false;
+        })
+        var aleady;  //存储已经选定的人名
+        $(".endclick").click(function () {
+            clearTimeout(auto);
+            var szname = $(".xname").text();
+            return false;
+        })
+        $(".writeclick").click(function () {
+            clearTimeout(auto);
+            var szname = $(".xname").text();
+            var jx = $("#grade option:selected");    //获取选中的是哪一种奖项
+
+            //alert("获奖录入成功");
+            $(".result_xx").after("<dd>" + jx.val() + " " + szname + "</dd>");
+            arry.splice(rand, 1);   //删除已经选定的数组元素 
+
+
+            return false;
+        })
+        $(".resetclick").click(function () {
+
+            alert("重置成功");
+            window.location = "WLottery.aspx?pid=242";
+
+            arry.splice(rand, 1);   //删除已经选定的数组元素 
+
+            return false;
+        })
+ });
+ 
+ 
+	$('#grade').change(function(){
+            var str  = $(this).children('option:selected').val();
+			
+            switch(str)
+            {
+                case "一等奖":
+                    document.getElementById("jx").src="img/1.png";
+                    break;
+                case "二等奖":
+                    document.getElementById("jx").src="img/2.png";
+                    break;
+                case "三等奖":
+                    document.getElementById("jx").src="img/3.png";
+                    break;
+                case "特等奖":
+                    document.getElementById("jx").src="img/4.png";
+                    break;
+            }
+		
+});
+
+	
+
+
+</script>
+
+</head>
+
+<body id="box">
+<div class="wp">
+	<div class="bg">
+        <div class="fu">
+            <img alt="" id="jx" src="img/1.png"/>
+        </div>
+
+    	<div class="people">当前共加入<font color="#FFFF00" class="font">1&nbsp 2</font><img src="img/jk.jpg" class="img"/>
+        </div>
+        <table width="90%"> 
+            <tr>
+                <td colspan="6" align="center" height="60px" class="td1">
+                    <b>Pwd</b> <input id="pwd" type="password"/> <a title="" class="resetclick" style="cursor:pointer;"><b>【重置】</b></a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>&nbsp;
+                    
+                </td>
+                <td class="td2">
+                </td>
+                <td class="td3" >
+                    <select id="grade" class="jxsz">
+                        <option value="一等奖" title="一等奖">一等奖</option>
+                        <option value="二等奖" title="二等奖">二等奖</option>
+                        <option value="三等奖" title="三等奖">三等奖</option>
+                        <option value="特等奖" title="特等奖">特等奖</option>
+                        
+                    </select>
+                    
+                </td>
+                
+                <td class="td4">
+                    <a title="" class="beginclick"><span>开始</span></a>
+                </td>
+                <td class="td5">
+                    <a title="" class="endclick"><span>暂停</span></a>
+                </td>
+                <td class="td6">
+                    <a title="" class="writeclick"><span>确认</span></a>
+                </td>
+            </tr>
+            
+        </table>
+        
+        <h2 class="xname"></h2>
+        <div class="foot">
+             <dl class="result_xx">
+                <dt>
+                	    
+                
+                </dt>
+             </dl>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
